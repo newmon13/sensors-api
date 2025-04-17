@@ -1,12 +1,9 @@
 import network
 import time
-import os
-from dotenv import load_dotenv
+import config
 
-load_dotenv()
-
-WIFI_SSID = os.environ.get("WIFI_SSID")
-WIFI_PASSWORD = os.environ.get("WIFI_PASSWORD")
+WIFI_SSID = config.WIFI_CONFIG.get("ssid")
+WIFI_PASSWORD = config.WIFI_CONFIG.get("password")
 
 def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
