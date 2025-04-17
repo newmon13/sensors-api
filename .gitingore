@@ -1,4 +1,4 @@
-.idea
-.venv
-.env
-sensors-api.iml
+    .idea
+    .venv
+    mp_resource/config.py
+    sensors-api.iml
