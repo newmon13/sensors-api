@@ -1,17 +1,15 @@
 from machine import Pin, ADC
 import time
 
-POWER_PIN = 17  # GPIO17 connected to the VCC pin of water sensor
+POWER_PIN = 25  # GPIO25 connected to the VCC pin of water sensor
 SIGNAL_PIN = 36  # ESP32 pin GPIO36 (ADC0) connected to the S pin
 
 SENSOR_MIN = 100  # Value when sensor is dry
 SENSOR_MAX = 360  # Value when sensor is fully submerged
 
-# Setup power pin
 power = Pin(POWER_PIN, Pin.OUT)
-power.value(0)  # Initially turn off the sensor
+power.value(0)
 
-# Setup ADC for reading
 signal = ADC(Pin(SIGNAL_PIN))
 signal.width(ADC.WIDTH_12BIT)
 signal.atten(ADC.ATTN_11DB)
