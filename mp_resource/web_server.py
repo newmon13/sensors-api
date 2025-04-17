@@ -1,6 +1,7 @@
 from lib.microdot import Microdot, Response
 import json
 import water_sensor
+import smoke_sensor
 
 app = Microdot()
 
@@ -13,3 +14,8 @@ def get_data(request):
     }
 
     return Response(json.dumps(data), headers={'Content-Type': 'application/json'})
+
+@app.route('/api/smoke-sensor')
+def get_data(request):
+    value = smoke_sensor.measure_smoke_level()
+    return Response(json.dumps(value), headers={'Content-Type': 'application/json'})
