@@ -1,13 +1,19 @@
 import network
 import time
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-def connect_wifi(ssid, password):
+WIFI_SSID = os.environ.get("WIFI_SSID")
+WIFI_PASSWORD = os.environ.get("WIFI_PASSWORD")
+
+def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     if not wlan.isconnected():
         print('Connecting to network...')
-        wlan.connect(ssid, password)
+        wlan.connect(WIFI_SSID, WIFI_PASSWORD)
         max_wait = 10
         while max_wait > 0:
             if wlan.isconnected():
