@@ -39,13 +39,13 @@ def normalize_smoke_level(value: int):
     return normalized_level
 
 def get_smoke_level_severity(level: float):
-    severity = "None"
+    severity = "NONE"
     if level > SMOKE_THRESHOLD_HIGH:
-        severity = "High"
+        severity = "HIGH"
     elif level > SMOKE_THRESHOLD_MEDIUM:
-        severity = "Medium"
+        severity = "MEDIUM"
     elif level > SMOKE_THRESHOLD_LOW:
-        severity = "Low"
+        severity = "LOW"
 
     return severity
 
