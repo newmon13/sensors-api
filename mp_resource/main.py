@@ -1,14 +1,22 @@
-import web_server
-import wifi_setup
-import config
+import device
+from config import wifi_setup
+from config.settings import INSTALLED_SENSORS
+from mqtt.publisher import start_publishing
+from sensor.smoke import get_full_result as get_smoke_full_result
+from sensor.water import get_full_result as get_water_full_result
+import mqtt.heartbeat as heartbeat
+
 
 def main():
     if wifi_setup.connect_wifi():
         print('Starting Microdot server...')
-        try:
-            web_server.app.run(port=config.SERVER_CONFIG.get("port"), debug=True)
-        except KeyboardInterrupt:
-            print('Server stopped')
+        mqtt_client = device.initialize_mqtt_client()
+        device.register_device(mqtt_client, INSTALLED_SENSORS)
+        heartbeat.start_heartbeat(mqtt_client)
+
+        start_publishing(mqtt_client, get_smoke_full_result, "smoke")
+        start_publishing(mqtt_client, get_water_full_result, "water")
+
 
 if __name__ == '__main__':
     main()
