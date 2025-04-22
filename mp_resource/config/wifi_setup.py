@@ -1,9 +1,6 @@
 import network
 import time
-import config
-
-WIFI_SSID = config.WIFI_CONFIG.get("ssid")
-WIFI_PASSWORD = config.WIFI_CONFIG.get("password")
+from config.settings import WIFI_CONFIG
 
 def connect_wifi():
     wlan = network.WLAN(network.STA_IF)
@@ -14,7 +11,7 @@ def connect_wifi():
 
 def establish_wifi_connection(wlan: network.WLAN):
     print('Connecting to network...')
-    wlan.connect(WIFI_SSID, WIFI_PASSWORD)
+    wlan.connect(WIFI_CONFIG['ssid'], WIFI_CONFIG['password'])
     max_wait = 10
     while max_wait > 0:
         if wlan.isconnected():

@@ -14,21 +14,27 @@ SMOKE_THRESHOLD_LOW = 600
 SMOKE_THRESHOLD_MEDIUM = 900
 SMOKE_THRESHOLD_HIGH = 1300
 
-def measure_smoke_level():
+
+def get_full_result():
     analog_result = signal.read()
     digital_result = digital_pin.value()
 
-    normalized_value = normalize_smoke_level(analog_result)
-    severity = get_smoke_level_severity(analog_result)
+    normalized_value = normalize(analog_result)
+    severity = get_severity(analog_result)
 
     return {
         "raw_value": analog_result,
-        "smoke_presence": not digital_result,
         "normalized_value": normalized_value,
+        "smoke_presence": not digital_result,
         "severity": severity
     }
 
-def normalize_smoke_level(value: int):
+
+def get_raw_result():
+    return signal.read()
+
+
+def normalize(value: int):
     if value <= SMOKE_THRESHOLD_LOW:
         normalized_level = 0
     elif value >= SMOKE_THRESHOLD_HIGH:
@@ -38,7 +44,8 @@ def normalize_smoke_level(value: int):
 
     return normalized_level
 
-def get_smoke_level_severity(level: float):
+
+def get_severity(level: float):
     severity = "NONE"
     if level > SMOKE_THRESHOLD_HIGH:
         severity = "HIGH"
@@ -48,10 +55,3 @@ def get_smoke_level_severity(level: float):
         severity = "LOW"
 
     return severity
-
-if __name__ == '__main__':
-    import time
-    while True:
-        result = measure_smoke_level()
-        print(result)
-        time.sleep(1)
