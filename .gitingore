@@ -1,4 +1,4 @@
     .idea
     .venv
-    mp_resource/config.py
+    mp_resource/config/settings.py
     sensors-api.iml
