@@ -17,15 +17,12 @@ SMOKE_THRESHOLD_HIGH = 1300
 
 def get_full_result():
     analog_result = signal.read()
-    digital_result = digital_pin.value()
-
     normalized_value = normalize(analog_result)
     severity = get_severity(analog_result)
 
     return {
         "raw_value": analog_result,
         "normalized_value": normalized_value,
-        "smoke_presence": not digital_result,
         "severity": severity
     }
 

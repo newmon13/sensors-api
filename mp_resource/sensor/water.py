@@ -29,7 +29,8 @@ def get_full_result():
 
     return {
         "raw_value": raw_value,
-        "normalized_value": curved_percentage
+        "normalized_value": curved_percentage,
+        "severity": "NONE"
     }
 
 
@@ -43,3 +44,4 @@ def map_value(x, in_min, in_max, out_min, out_max):
 
 def apply_curve(percentage):
     return int((percentage / 100) ** 2 * 100)
+
