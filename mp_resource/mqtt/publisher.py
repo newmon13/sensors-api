@@ -5,7 +5,7 @@ import _thread
 import utime
 import json
 
-BASE_TOPIC: str = f"devices/{DEVICE_ID}"
+BASE_TOPIC: str = f"devices/{DEVICE_ID}/sensors"
 SENSOR_READ_VALUE_THRESHOLD = 50
 
 lock = _thread.allocate_lock()

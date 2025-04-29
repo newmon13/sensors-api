@@ -1,5 +1,5 @@
 import _thread
-import utime
+import time
 import json
 from lib.simple import MQTTClient
 import ubinascii
@@ -18,10 +18,14 @@ def start_heartbeat(mqtt_client: MQTTClient):
 def heartbeat_thread_function(mqtt_client: MQTTClient):
     while True:
         heartbeat_data = {
-            "heartbeat": "alive",
-            "timestamp": utime.time()
+            "timestamp": get_unix_timestamp()
         }
         lock.acquire()
         mqtt_client.publish(HEARTBEAT_TOPIC, json.dumps(heartbeat_data).encode())
         lock.release()
-        utime.sleep(HEARTBEAT_INTERVAL_SECONDS)
+        time.sleep(HEARTBEAT_INTERVAL_SECONDS)
+
+def get_unix_timestamp():
+    y2k_timestamp = time.time()
+    unix_timestamp = y2k_timestamp + 946684800
+    return int(unix_timestamp)
